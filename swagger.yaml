@@ -2941,10 +2941,3 @@ paths:
                   success:
                     type: string
                     example: "false"
-    /testEndpoint:
-    post:
-      summary: 'A test endpoint'
-      operationId: 38b7dfe94046f090596207e4b76bdaca
-      responses:
-        '200':
-          description: Success
