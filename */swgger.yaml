@@ -1,0 +1,4526 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Deliver Capital API v4",
+    "description" : "API documentation for Deliver Capital v4.",
+    "version" : "1.0.0-oas3"
+  },
+  "servers" : [ {
+    "url" : "https://dc-crm-stage.avmdemo.com/custom/service/v4_1_custom/rest.php",
+    "description" : "Staging environment"
+  }, {
+    "url" : "https://crm.fynsuite.com/custom/service/v4_1_custom/rest.php",
+    "description" : "Production environment"
+  } ],
+  "paths" : {
+    "/" : {
+      "get" : {
+        "summary" : "DC Login",
+        "description" : "Login to SuiteCRM and obtain session token.",
+        "parameters" : [ {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "login"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"user_auth\":{\"user_name\":\"admin\",\"password\":\"admin\",\"encryption\":\"PLAIN\"},\"application\":\"Autobot\"}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful login",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_entry" : {
+      "get" : {
+        "summary" : "Get Entry for Lead",
+        "description" : "Retrieves a single Lead entry by ID.",
+        "parameters" : [ {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "get_entry"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"3saf5n9u2gn6ihthqkuttc8aim\",\n  \"module_name\": \"Leads\",\n  \"id\": \"6e0be419-5bcc-9a80-0efc-64f859a37a88\",\n  \"offset\": 0,\n  \"select_fields\": [],\n  \"link_name_to_fields_array\": [],\n  \"max_results\": 1,\n  \"deleted\": \"false\"\n}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Single Lead entry retrieved successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Lead entry not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_entries" : {
+      "get" : {
+        "summary" : "Retrieve Multiple Entries",
+        "description" : "Fetches multiple records by IDs from the specified module.",
+        "parameters" : [ {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "get_entries"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"your_session_id\",\n  \"module_name\": \"Leads\",\n  \"ids\": [\"id1\", \"id2\"],\n  \"select_fields\": [\"first_name\", \"last_name\"]\n}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Entries retrieved successfully.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/inline_response_200_2"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_entry_list" : {
+      "get" : {
+        "summary" : "Get Entry List for Leads",
+        "description" : "Retrieves a list of Leads entries matching the specified query.",
+        "parameters" : [ {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "get_entry_list"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"3saf5n9u2gn6ihthqkuttc8aim\",\n  \"module_name\": \"Leads\",\n  \"query\": \"leads.last_name = 'testt'\",\n  \"order_by\": \"\",\n  \"offset\": \"\",\n  \"select_fields\": [\"id\", \"first_name\", \"last_name\"],\n  \"link_name_to_fields_array\": [],\n  \"max_results\": 0,\n  \"deleted\": \"false\"\n}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "List of Leads retrieved successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "No entries found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/set_entry" : {
+      "post" : {
+        "summary" : "Create or Update a Single Entry",
+        "description" : "Creates or updates a single record in the specified module.",
+        "parameters" : [ {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "set_entry"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"your_session_id\",\n  \"module_name\": \"Leads\",\n  \"name_value_list\": {\n    \"first_name\": \"John\",\n    \"last_name\": \"Doe\"\n  }\n}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Entry created or updated successfully.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_4"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/set_entries" : {
+      "post" : {
+        "summary" : "Create or Update Multiple Entries",
+        "description" : "Creates or updates multiple records in the specified module.",
+        "parameters" : [ {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "set_entries"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"your_session_id\",\n  \"module_name\": \"Leads\",\n  \"name_value_lists\": [\n    {\"first_name\": \"John\", \"last_name\": \"Doe\"},\n    {\"first_name\": \"Jane\", \"last_name\": \"Smith\"}\n  ]\n}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Entries created or updated successfully.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/inline_response_200_4"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/manualLogin" : {
+      "get" : {
+        "summary" : "Manual Login for Brokers",
+        "description" : "Authenticates a broker using username and password.",
+        "parameters" : [ {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "manualLogin"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"your_session_id\",\n  \"params\": {\n    \"username_c\": \"example_user\",\n    \"password_c\": \"example_password\"\n  }\n}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful login",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_5"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Invalid credentials or unauthorized access",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/manualLeadLogin" : {
+      "get" : {
+        "summary" : "Manual Login for Leads",
+        "description" : "Authenticates a lead using username and password.",
+        "parameters" : [ {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "manualLeadLogin"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"your_session_id\",\n  \"params\": {\n    \"username_c\": \"lead_username\",\n    \"password_c\": \"lead_password\"\n  }\n}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful lead login",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_6"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Invalid credentials or unauthorized access",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getBrokerDetails" : {
+      "get" : {
+        "summary" : "Get Broker Details",
+        "description" : "Retrieves details of a broker by ID.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "3saf5n9u2gn6ihthqkuttc8aim"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "getBrokerDetails"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"session\":\"3saf5n9u2gn6ihthqkuttc8aim\",\"params\":{\"id\":\"20f66d24-f9d5-018b-9710-65b3fe3bb78a\"}}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Broker details retrieved successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_7"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Broker not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_2"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getBrokerCount" : {
+      "get" : {
+        "summary" : "Get Broker Count",
+        "description" : "Retrieves the count of leads associated with a broker by ID.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "d6jfr6hmssfbksiis2a7rh16ve"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "getBrokerCount"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"session\":\"d6jfr6hmssfbksiis2a7rh16ve\",\"params\":{\"id\":\"20f66d24-f9d5-018b-9710-65b3fe3bb78a\"}}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Broker count retrieved successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_8"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Broker not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_2"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getAssociatedLeads" : {
+      "get" : {
+        "summary" : "Get Associated Leads",
+        "description" : "Retrieves leads associated with a broker by ID.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "d6jfr6hmssfbksiis2a7rh16ve"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "getAssociatedLeads"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"session\":\"d6jfr6hmssfbksiis2a7rh16ve\",\"params\":{\"id\":\"20f66d24-f9d5-018b-9710-65b3fe3bb78a\"}}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Associated leads retrieved successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_9"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "No leads found for the broker",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_3"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getAssociatedNotes" : {
+      "get" : {
+        "summary" : "Get Associated Notes",
+        "description" : "Retrieves notes associated with a specific entity by parent ID.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "d6jfr6hmssfbksiis2a7rh16ve"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "getAssociatedNotes"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"session\":\"d6jfr6hmssfbksiis2a7rh16ve\",\"params\":{\"query\":\"\", \"limit\": \"\"}}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Associated notes retrieved successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_10"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "No notes found for the specified parent ID",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_4"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getFile" : {
+      "get" : {
+        "summary" : "Get File",
+        "description" : "Retrieves a file associated with a specific record ID.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "d6jfr6hmssfbksiis2a7rh16ve"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "getFile"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"session\":\"d6jfr6hmssfbksiis2a7rh16ve\",\"recordId\":\"eb71c90f-7cc0-4638-60df-6666a898c78b\"}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "File retrieved successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_11"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "File not found for the specified record ID",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_5"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/checkEmailExist" : {
+      "get" : {
+        "summary" : "Check Email Existence",
+        "description" : "Checks if an email exists in a specified module.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "d6jfr6hmssfbksiis2a7rh16ve"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "checkEmailExist"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"session\":\"d6jfr6hmssfbksiis2a7rh16ve\",\"params\":{\"module_name\": \"Leads\", \"email\": \"test_HANNAH@mailinator.com\"}}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Email existence check successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_12"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Email not found in the specified module",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_6"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/changePassword" : {
+      "get" : {
+        "summary" : "Change Broker Password",
+        "description" : "Changes the broker's password and sends an email with new credentials.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "changePassword"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"session\":\"8lalb3srcmsbs1u1jgpkld80se\",\"params\":{\"module_name\":\"dc_brokers\",\"email\":\"broker@example.com\"}}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Password changed and email sent successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_13"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error in changing password or sending email",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sendtoCentrex" : {
+      "get" : {
+        "summary" : "Send Lead to Centrex",
+        "description" : "Sends lead information to Centrex system based on lead ID.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "sendtoCentrex"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"session\":\"8lalb3srcmsbs1u1jgpkld80se\",\"params\":{\"id\":\"20f66d24-f9d5-018b-9710-65b3fe3bb78a\"}}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Lead data sent to Centrex successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_14"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error in sending lead to Centrex",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/offshoreScript" : {
+      "post" : {
+        "summary" : "Offshore Script",
+        "description" : "Creates or updates a lead and optionally schedules a task if an appointment is booked.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "offshoreScript"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"session\":\"8lalb3srcmsbs1u1jgpkld80se\",\"params\":{\"lead_field_1\":\"value_1\",\"lead_field_2\":\"value_2\",\"appointment\":\"appointment\",\"assigned_user_id\":\"user_id\"}}"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/offshoreScript_body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Lead created/updated successfully, and task created if appointment booked",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_15"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error in processing request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400_2"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getDocuments" : {
+      "get" : {
+        "summary" : "Get Documents for Lead",
+        "description" : "Retrieves requested documents for a given lead ID in the specified module.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "getDocuments"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"session\":\"8lalb3srcmsbs1u1jgpkld80se\",\"params\":{\"module\":\"Leads\",\"lead_id\":\"4c35978a-0aec-7b36-1747-5e540def5546\"}}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Documents retrieved successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_16"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "No documents found or lead not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_7"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pqe_submission" : {
+      "get" : {
+        "summary" : "PQE Submission",
+        "description" : "Submits or updates a lead for PQE processing.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "pqe_submission"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"8lalb3srcmsbs1u1jgpkld80se\",\n  \"params\": {\n    \"lead_id\": \"4c35978a-0aec-7b36-1747-5e540def5546\", \n    \"first_name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"primary_address_street\": \"123 Main St\",\n    \"primary_address_city\": \"Cityville\",\n    \"primary_address_state\": \"CA\",\n    \"primary_address_postalcode\": \"90210\",\n    \"email\": \"john.doe@example.com\",\n    \"ssn_c\": \"123-45-6789\"\n  }\n}\n"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "PQE submission processed successfully.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_17"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "PQE submission failed",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400_3"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getBdsFormData" : {
+      "get" : {
+        "summary" : "Get BDS Form Data",
+        "description" : "Retrieves BDS form data associated with a lead.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "getBdsFormData"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"8lalb3srcmsbs1u1jgpkld80se\",\n  \"params\": {\n    \"lead_id\": \"4c35978a-0aec-7b36-1747-5e540def5546\",\n    \"lead_data\": \"field1,field2\",\n    \"dc_personal_financial_statement\": \"financial_field1,financial_field2\",\n    \"dc_cash_in_banks\": \"cash_field1,cash_field2\",\n    \"dc_listed_securities\": \"security_field1,security_field2\",\n    \"dc_personal_assets\": \"asset_field1,asset_field2\",\n    \"dc_existing_personal_debt_schedule\": \"debt_field1,debt_field2\",\n    \"dc_existing_business_debt_schedule\": \"business_debt_field1,business_debt_field2\"\n  }\n}\n"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "BDS form data retrieved successfully.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_18"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "BDS form data not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_8"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submit_bds_pfs_form_data" : {
+      "get" : {
+        "summary" : "Submit BDS PFS Form Data",
+        "description" : "Submits BDS PFS form data and updates the lead or opportunity record accordingly.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "submit_bds_pfs_form_data"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"8lalb3srcmsbs1u1jgpkld80se\",\n  \"params\": {\n    \"module\": \"Leads\",\n    \"id\": \"4c35978a-0aec-7b36-1747-5e540def5546\",\n    \"field_to_check\": \"field_name_to_check\"\n  }\n}\n"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "BDS PFS form data submitted successfully.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_19"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Record not found or session invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_9"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_bds_pfs_status" : {
+      "get" : {
+        "summary" : "Get BDS PFS Form Status",
+        "description" : "Checks the status of the BDS PFS form for a given lead.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "get_bds_pfs_status"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"8lalb3srcmsbs1u1jgpkld80se\",\n  \"params\": {\n    \"lead_id\": \"4c35978a-0aec-7b36-1747-5e540def5546\"\n  }\n}\n"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "BDS PFS form status retrieved successfully.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_20"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Lead not found or session invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_10"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer_portal_signup" : {
+      "get" : {
+        "summary" : "Customer Portal Signup",
+        "description" : "Handles customer portal signup by verifying and registering customer credentials.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "customer_portal_signup"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"8lalb3srcmsbs1u1jgpkld80se\",\n  \"params\": {\n    \"username_c\": \"test_user@example.com\",\n    \"password_c\": \"securepassword\"\n  }\n}\n"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Customer portal signup completed successfully.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_21"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error during signup process",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400_4"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer_portal_login" : {
+      "get" : {
+        "summary" : "Customer Portal Login",
+        "description" : "Handles customer login to the portal with optional two-factor authentication.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "customer_portal_login"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"8lalb3srcmsbs1u1jgpkld80se\",\n  \"params\": {\n    \"username_c\": \"test_user@example.com\",\n    \"password_c\": \"securepassword\",\n    \"two_factor_auth_id\": \"example_two_fa_id\"\n  }\n}\n"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Login completed successfully with or without two-factor authentication.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_22"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error during login",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400_5"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/changePassword_customer_portal" : {
+      "get" : {
+        "summary" : "Change Customer Portal Password",
+        "description" : "Initiates the password reset process for a customer portal account.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "changePassword_customer_portal"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"8lalb3srcmsbs1u1jgpkld80se\",\n  \"params\": {\n    \"module_name\": \"Leads\",\n    \"username_c\": \"test_user@example.com\"\n  }\n}\n"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Password reset initiated successfully.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_23"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Password reset failed.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400_6"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/setpassword_customer_portal" : {
+      "post" : {
+        "summary" : "Set Customer Portal Password",
+        "description" : "Sets a new password for the customer portal if the reset password link is still valid.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "setpassword_customer_portal"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"8lalb3srcmsbs1u1jgpkld80se\",\n  \"params\": {\n    \"module_name\": \"Leads\",\n    \"lead_id\": \"4c35978a-0aec-7b36-1747-5e540def5546\",\n    \"password_c\": \"new_password123\"\n  }\n}\n"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Password set successfully.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_17"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Failed to set password.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400_7"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer_portal_twofa" : {
+      "post" : {
+        "summary" : "Customer Portal Two-Factor Authentication",
+        "description" : "Verifies the two-factor authentication (2FA) code for the customer portal.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "customer_portal_twofa"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"8lalb3srcmsbs1u1jgpkld80se\",\n  \"params\": {\n    \"module_name\": \"Leads\",\n    \"lead_id\": \"4c35978a-0aec-7b36-1747-5e540def5546\",\n    \"twofa_code\": \"123456\",\n    \"remember_me\": \"on\"\n  }\n}\n"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "2FA verification successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_24"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "2FA verification failed",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400_8"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/requestTwoFactorAgain" : {
+      "post" : {
+        "summary" : "Request Two-Factor Authentication Code Again",
+        "description" : "Requests a new 2FA code for the customer portal.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "requestTwoFactorAgain"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"8lalb3srcmsbs1u1jgpkld80se\",\n  \"params\": {\n    \"module_name\": \"Leads\",\n    \"lead_id\": \"4c35978a-0aec-7b36-1747-5e540def5546\"\n  }\n}\n"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "2FA code requested successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_25"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Failed to request 2FA code",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400_9"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_CustomerData" : {
+      "post" : {
+        "summary" : "Get Customer Data",
+        "description" : "Retrieves customer data for the specified lead ID and origin.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "get_CustomerData"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"8lalb3srcmsbs1u1jgpkld80se\",\n  \"params\": {\n    \"origin\": \"web_portal\",\n    \"leadID\": \"4c35978a-0aec-7b36-1747-5e540def5546\"\n  }\n}\n"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Customer data retrieved successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_26"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Customer data not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_11"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getPQDocument" : {
+      "post" : {
+        "summary" : "Get PQ Document",
+        "description" : "Retrieves the latest PQ PDF Summary document associated with a lead ID.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "getPQDocument"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"8lalb3srcmsbs1u1jgpkld80se\",\n  \"params\": {\n    \"lead_id\": \"4c35978a-0aec-7b36-1747-5e540def5546\"\n  }\n}\n"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Document data retrieved successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_27"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Document not found for the provided lead ID",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_12"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/setMettingForLead" : {
+      "post" : {
+        "summary" : "Set Meeting for Lead",
+        "description" : "Creates a meeting for a lead based on provided email and meeting details.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "setMettingForLead"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"8lalb3srcmsbs1u1jgpkld80se\",\n  \"data\": {\n    \"event\": \"invitee.created\",\n    \"payload\": {\n      \"email\": \"lead@example.com\",\n      \"name\": \"Lead Meeting\",\n      \"scheduled_event\": {\n        \"start_time\": \"2024-11-10T09:00:00\",\n        \"end_time\": \"2024-11-10T10:30:00\"\n      },\n      \"questions_and_answers\": [\n        {\n          \"answer\": \"Meeting details description\"\n        }\n      ]\n    }\n  }\n}\n"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/setMettingForLead_body"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Meeting created successfully for the lead",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "boolean",
+                  "example" : true
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Lead not found or unable to create meeting",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "boolean",
+                  "example" : false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/checkPhoneExist" : {
+      "get" : {
+        "summary" : "Check if Phone Number Exists",
+        "description" : "Checks if a phone number already exists in a specified module (e.g., Leads).",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "checkPhoneExist"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"session\":\"8lalb3srcmsbs1u1jgpkld80se\",\"params\":{\"phone_mobile\":\"1234567890\",\"module_name\":\"Leads\"}}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Phone existence check result",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_28"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Phone number not found in the specified module",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_13"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/deleteBrokerlogo" : {
+      "get" : {
+        "summary" : "Delete Broker Logo",
+        "description" : "Deletes the logo of a broker by removing the corresponding file from the server.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "deleteBrokerlogo"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"session\":\"8lalb3srcmsbs1u1jgpkld80se\",\"params\":{\"id\":\"broker_id\"}}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Broker logo deletion result",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_29"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Broker logo not found or failed to delete",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_14"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/createRecordForHubspot" : {
+      "get" : {
+        "summary" : "Create Record for HubSpot",
+        "description" : "Creates a new record for HubSpot and returns a unique ID for the new record.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "createRecordForHubspot"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"session\":\"8lalb3srcmsbs1u1jgpkld80se\",\"params\":{}}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Record created successfully with a unique ID",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_30"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Failed to create record",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_15"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/setBrokerProfileData" : {
+      "post" : {
+        "summary" : "Set Broker Profile Data",
+        "description" : "Uploads and sets the broker's profile photo in SuiteCRM.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "setBrokerProfileData"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/setBrokerProfileData_body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Profile photo uploaded and set successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_31"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Profile update failed",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_16"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getBrokerSettings" : {
+      "get" : {
+        "summary" : "Get Broker Settings",
+        "description" : "Retrieves the broker's outbound email settings based on the company ID.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "getBrokerSettings"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\"session\":\"8lalb3srcmsbs1u1jgpkld80se\",\"params\":{\"company_id\":\"a1b2c3d4e5f6\"}}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Broker settings retrieved successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_32"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Broker settings not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_17"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sendTestEmail" : {
+      "post" : {
+        "summary" : "Send Test Email",
+        "description" : "Sends a test email to the specified email address using the provided SMTP settings.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "sendTestEmail"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/sendTestEmail_body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Test email sent successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_33"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Test email failed to send",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400_10"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sendBrokermails" : {
+      "post" : {
+        "summary" : "Send Broker Email Instructions",
+        "description" : "Sends an instruction email to the broker's contact email.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "sendBrokermails"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/sendBrokermails_body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Instruction email sent successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_34"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Failed to send instruction email",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400_11"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/isDuplicateEmail" : {
+      "post" : {
+        "summary" : "Check for Duplicate Email",
+        "description" : "Checks if the specified email already exists in the given module.",
+        "parameters" : [ {
+          "name" : "session",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "8lalb3srcmsbs1u1jgpkld80se"
+        }, {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "isDuplicateEmail"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/isDuplicateEmail_body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Duplicate email check result",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_35"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid input data",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400_12"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fetchAndDisplayDocument" : {
+      "get" : {
+        "summary" : "Fetch and Display Document",
+        "description" : "Fetches and displays a document based on the document ID and preview option.",
+        "parameters" : [ {
+          "name" : "input_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "method",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "fetchAndDisplayDocument"
+        }, {
+          "name" : "response_type",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        }, {
+          "name" : "rest_data",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "{\n  \"session\": \"3saf5n9u2gn6ihthqkuttc8aim\",\n  \"params\": {\n    \"document_id\": \"443f9020-610a-d2cd-ee11-670f76181cd0\",\n    \"preview\": \"yes\"\n  }\n}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Document fetched and displayed successfully.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_36"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Document not found or error fetching document.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404_18"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/testEndpoint" : {
+      "post" : {
+        "summary" : "A test endpoint",
+        "operationId" : "38b7dfe94046f090596207e4b76bdaca",
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "inline_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "inline_response_200_1" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "entry" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "string",
+                "example" : "6e0be419-5bcc-9a80-0efc-64f859a37a88"
+              },
+              "first_name" : {
+                "type" : "string",
+                "example" : "John"
+              },
+              "last_name" : {
+                "type" : "string",
+                "example" : "Doe"
+              },
+              "email" : {
+                "type" : "string",
+                "example" : "john.doe@example.com"
+              }
+            }
+          }
+        }
+      },
+      "inline_response_404" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "No matching record found with the specified ID."
+          }
+        }
+      },
+      "inline_response_200_2" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "first_name" : {
+            "type" : "string"
+          },
+          "last_name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "inline_response_200_3" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "result_count" : {
+            "type" : "integer",
+            "example" : 5
+          },
+          "next_offset" : {
+            "type" : "integer",
+            "example" : 0
+          },
+          "entry_list" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string",
+                  "example" : "3saf5n9u2gn6ihthqkuttc8aim"
+                },
+                "first_name" : {
+                  "type" : "string",
+                  "example" : "John"
+                },
+                "last_name" : {
+                  "type" : "string",
+                  "example" : "Doe"
+                }
+              }
+            }
+          }
+        }
+      },
+      "inline_response_404_1" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "No matching records found for the query."
+          }
+        }
+      },
+      "inline_response_200_4" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "unique_record_id"
+          }
+        }
+      },
+      "inline_response_200_5" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "b1b27f8b-bd18-40ab-a8b4-0f93a735ca18"
+          },
+          "username_c" : {
+            "type" : "string",
+            "example" : "example_user"
+          },
+          "broker_details" : {
+            "type" : "object",
+            "additionalProperties" : true
+          }
+        }
+      },
+      "inline_response_401" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Unauthorized access. Invalid credentials."
+          }
+        }
+      },
+      "inline_response_200_6" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "a0b27e8a-dc28-48ab-a7c4-3f93a735cb45"
+          },
+          "first_name" : {
+            "type" : "string",
+            "example" : "John"
+          },
+          "last_name" : {
+            "type" : "string",
+            "example" : "Doe"
+          }
+        }
+      },
+      "inline_response_200_7" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "string",
+                "example" : "20f66d24-f9d5-018b-9710-65b3fe3bb78a"
+              },
+              "name" : {
+                "type" : "string",
+                "example" : "Jane Doe"
+              },
+              "email" : {
+                "type" : "string",
+                "example" : "janedoe@example.com"
+              },
+              "phone" : {
+                "type" : "string",
+                "example" : "+1234567890"
+              }
+            }
+          }
+        }
+      },
+      "inline_response_404_2" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "Broker not found"
+          }
+        }
+      },
+      "inline_response_200_8" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "total_count" : {
+                "type" : "integer",
+                "example" : 42
+              },
+              "business_application" : {
+                "type" : "integer",
+                "example" : 25
+              },
+              "personal_application" : {
+                "type" : "integer",
+                "example" : 17
+              }
+            }
+          }
+        }
+      },
+      "inline_response_200_9" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "lead_id" : {
+                  "type" : "string",
+                  "example" : "4c35978a-0aec-7b36-1747-5e540def5546"
+                },
+                "first_name" : {
+                  "type" : "string",
+                  "example" : "John"
+                },
+                "last_name" : {
+                  "type" : "string",
+                  "example" : "Doe"
+                },
+                "email" : {
+                  "type" : "string",
+                  "example" : "johndoe@example.com"
+                },
+                "phone" : {
+                  "type" : "string",
+                  "example" : "+1234567890"
+                },
+                "status" : {
+                  "type" : "string",
+                  "example" : "In Progress"
+                }
+              }
+            }
+          }
+        }
+      },
+      "inline_response_404_3" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "No leads found for the broker"
+          }
+        }
+      },
+      "inline_response_200_10" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "note_id" : {
+                  "type" : "string",
+                  "example" : "4c35978a-0aec-7b36-1747-5e540def5546"
+                },
+                "subject" : {
+                  "type" : "string",
+                  "example" : "Meeting notes"
+                },
+                "description" : {
+                  "type" : "string",
+                  "example" : "Details about the meeting..."
+                },
+                "date_created" : {
+                  "type" : "string",
+                  "format" : "date-time",
+                  "example" : "2024-11-01T12:34:56Z"
+                }
+              }
+            }
+          }
+        }
+      },
+      "inline_response_404_4" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "No notes found for the specified parent ID"
+          }
+        }
+      },
+      "inline_response_200_11" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "file" : {
+            "type" : "object",
+            "properties" : {
+              "file_id" : {
+                "type" : "string",
+                "example" : "eb71c90f-7cc0-4638-60df-6666a898c78b"
+              },
+              "file_name" : {
+                "type" : "string",
+                "example" : "document.pdf"
+              },
+              "file_data" : {
+                "type" : "string",
+                "format" : "byte",
+                "example" : "QmFzZTY0RW5jb2RlZEZpbGVEYXRh"
+              },
+              "mime_type" : {
+                "type" : "string",
+                "example" : "application/pdf"
+              }
+            }
+          }
+        }
+      },
+      "inline_response_404_5" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "File not found for the specified record ID"
+          }
+        }
+      },
+      "inline_response_200_12" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "exists" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "record_id" : {
+            "type" : "string",
+            "example" : "b14f9e92-c4d6-5fcb-a52e-93dfcd95cb3a"
+          }
+        }
+      },
+      "inline_response_404_6" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "Email not found in the specified module"
+          }
+        }
+      },
+      "inline_response_200_13" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Email Sent Successfully. Please check Your Email"
+          }
+        }
+      },
+      "inline_response_400" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Email Not Sent! Contact Your Administrator"
+          }
+        }
+      },
+      "inline_response_200_14" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Lead sent to Centrex successfully"
+          },
+          "data" : {
+            "type" : "object"
+          }
+        }
+      },
+      "inline_response_400_1" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "Failed to send lead to Centrex"
+          }
+        }
+      },
+      "offshoreScript_body" : {
+        "type" : "object",
+        "properties" : {
+          "lead_fields" : {
+            "type" : "object",
+            "example" : {
+              "lead_field_1" : "value_1",
+              "lead_field_2" : "value_2"
+            }
+          },
+          "appointment" : {
+            "type" : "string",
+            "example" : "appointment"
+          },
+          "assigned_user_id" : {
+            "type" : "string",
+            "example" : "user_id"
+          }
+        }
+      },
+      "inline_response_200_15" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Lead saved and task created for appointment"
+          }
+        }
+      },
+      "inline_response_400_2" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "Failed to create lead or task"
+          }
+        }
+      },
+      "inline_response_200_16" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "documantsAvailable" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "documents" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "example" : {
+              "Document1" : "ID1",
+              "Document2" : "ID2"
+            }
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "John Doe"
+          }
+        }
+      },
+      "inline_response_404_7" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "documantsAvailable" : {
+            "type" : "boolean",
+            "example" : false
+          }
+        }
+      },
+      "inline_response_200_17" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          }
+        }
+      },
+      "inline_response_400_3" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "Invalid session or data"
+          }
+        }
+      },
+      "inline_response_200_18" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "lead_data" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "dc_personal_financial_statement" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "dc_cash_in_banks" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "string"
+              }
+            }
+          },
+          "dc_listed_securities" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "string"
+              }
+            }
+          },
+          "dc_personal_assets" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "string"
+              }
+            }
+          },
+          "dc_existing_personal_debt_schedule" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "string"
+              }
+            }
+          },
+          "dc_existing_business_debt_schedule" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      },
+      "inline_response_404_8" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "No data found for the provided lead."
+          }
+        }
+      },
+      "inline_response_200_19" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "BDS PFS form data submitted and documents updated."
+          }
+        }
+      },
+      "inline_response_404_9" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "Invalid session or record not found."
+          }
+        }
+      },
+      "inline_response_200_20" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "bds_pfs_form_status" : {
+            "type" : "boolean",
+            "example" : true
+          }
+        }
+      },
+      "inline_response_404_10" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "Invalid session or lead not found."
+          }
+        }
+      },
+      "inline_response_200_21" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "id" : {
+            "type" : "string",
+            "example" : "4c35978a-0aec-7b36-1747-5e540def5546"
+          },
+          "msg" : {
+            "type" : "string",
+            "example" : "Signup successful"
+          }
+        }
+      },
+      "inline_response_400_4" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "msg" : {
+            "type" : "string",
+            "example" : "Email is already registered or invalid email provided."
+          }
+        }
+      },
+      "inline_response_200_22" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "id" : {
+            "type" : "string",
+            "example" : "4c35978a-0aec-7b36-1747-5e540def5546"
+          },
+          "two_fa_check" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "msg" : {
+            "type" : "string",
+            "example" : "Login successful with two-factor authentication."
+          }
+        }
+      },
+      "inline_response_400_5" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "msg" : {
+            "type" : "string",
+            "example" : "Invalid Email or Password"
+          }
+        }
+      },
+      "inline_response_200_23" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "msg" : {
+            "type" : "string",
+            "example" : "reset password success"
+          }
+        }
+      },
+      "inline_response_400_6" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "msg" : {
+            "type" : "string",
+            "example" : "Email Does not Match"
+          }
+        }
+      },
+      "inline_response_400_7" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "msg" : {
+            "type" : "string",
+            "example" : "The link has expired"
+          }
+        }
+      },
+      "inline_response_200_24" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "two_factor_id" : {
+            "type" : "string",
+            "example" : "d6jfr6hmssfbksiis2a7rh16ve"
+          },
+          "msg" : {
+            "type" : "string",
+            "example" : "OTP Verified Successfully"
+          }
+        }
+      },
+      "inline_response_400_8" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "msg" : {
+            "type" : "string",
+            "example" : "OTP Expired! Please Generate New OTP"
+          }
+        }
+      },
+      "inline_response_200_25" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "New OTP sent successfully"
+          }
+        }
+      },
+      "inline_response_400_9" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "Unable to send OTP, please try again"
+          }
+        }
+      },
+      "inline_response_200_26" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "data" : {
+            "type" : "object",
+            "example" : {
+              "name" : "John Doe",
+              "email" : "johndoe@example.com",
+              "phone" : "+1234567890",
+              "address" : "123 Main St, City, State"
+            }
+          }
+        }
+      },
+      "inline_response_404_11" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "Customer data not found for the provided lead ID"
+          }
+        }
+      },
+      "inline_response_200_27" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "string",
+            "example" : "true"
+          },
+          "document_name" : {
+            "type" : "string",
+            "example" : "PQ Summary Document"
+          },
+          "document_revision_id" : {
+            "type" : "string",
+            "example" : "rev12345"
+          },
+          "template_type" : {
+            "type" : "string",
+            "example" : "PQ PDF Summary"
+          },
+          "file_mime_type" : {
+            "type" : "string",
+            "example" : "application/pdf"
+          },
+          "file_ext" : {
+            "type" : "string",
+            "example" : "pdf"
+          },
+          "filename" : {
+            "type" : "string",
+            "example" : "summary_document.pdf"
+          },
+          "preview" : {
+            "type" : "string",
+            "example" : "no"
+          },
+          "file_content" : {
+            "type" : "string",
+            "example" : "base64encodedcontent=="
+          }
+        }
+      },
+      "inline_response_404_12" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "string",
+            "example" : "false"
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "No document found for the specified lead ID"
+          }
+        }
+      },
+      "setMettingForLead_data_payload_scheduled_event" : {
+        "type" : "object",
+        "properties" : {
+          "start_time" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "end_time" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "setMettingForLead_data_payload_questions_and_answers" : {
+        "type" : "object",
+        "properties" : {
+          "answer" : {
+            "type" : "string",
+            "example" : "Meeting details description"
+          }
+        }
+      },
+      "setMettingForLead_data_payload" : {
+        "type" : "object",
+        "properties" : {
+          "email" : {
+            "type" : "string",
+            "example" : "lead@example.com"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Lead Meeting"
+          },
+          "scheduled_event" : {
+            "$ref" : "#/components/schemas/setMettingForLead_data_payload_scheduled_event"
+          },
+          "questions_and_answers" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/setMettingForLead_data_payload_questions_and_answers"
+            }
+          }
+        }
+      },
+      "setMettingForLead_data" : {
+        "type" : "object",
+        "properties" : {
+          "event" : {
+            "type" : "string",
+            "example" : "invitee.created"
+          },
+          "payload" : {
+            "$ref" : "#/components/schemas/setMettingForLead_data_payload"
+          }
+        }
+      },
+      "setMettingForLead_body" : {
+        "type" : "object",
+        "properties" : {
+          "session" : {
+            "type" : "string",
+            "example" : "8lalb3srcmsbs1u1jgpkld80se"
+          },
+          "data" : {
+            "$ref" : "#/components/schemas/setMettingForLead_data"
+          }
+        }
+      },
+      "inline_response_200_28" : {
+        "type" : "object",
+        "properties" : {
+          "exists" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Phone number exists in the module."
+          }
+        }
+      },
+      "inline_response_404_13" : {
+        "type" : "object",
+        "properties" : {
+          "exists" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Phone number not found in the module."
+          }
+        }
+      },
+      "inline_response_200_29" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "description" : "Indicates if the logo deletion was successful.",
+            "example" : true
+          }
+        }
+      },
+      "inline_response_404_14" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "description" : "Indicates if the logo deletion failed.",
+            "example" : false
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "File not found or could not be deleted."
+          }
+        }
+      },
+      "inline_response_200_30" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Unique ID for the created record.",
+            "example" : "b4a3a2b4-e2ff-47e3-a35a-57b0f9e1b7b1"
+          }
+        }
+      },
+      "inline_response_404_15" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "description" : "Indicates if the record creation failed.",
+            "example" : false
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Record could not be created."
+          }
+        }
+      },
+      "setBrokerProfileData_rest_data_params" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Broker ID.",
+            "example" : "b4a3a2b4-e2ff-47e3-a35a-57b0f9e1b7b1"
+          },
+          "photo" : {
+            "type" : "string",
+            "description" : "Base64-encoded photo data.",
+            "format" : "byte",
+            "example" : "aVZCT1J3MEtHZ29BQUFBTlNVaEVVZ0FBQUlBQUFBQy4uLg=="
+          }
+        }
+      },
+      "setBrokerProfileData_rest_data" : {
+        "type" : "object",
+        "properties" : {
+          "session" : {
+            "type" : "string",
+            "example" : "8lalb3srcmsbs1u1jgpkld80se"
+          },
+          "params" : {
+            "$ref" : "#/components/schemas/setBrokerProfileData_rest_data_params"
+          }
+        }
+      },
+      "setBrokerProfileData_body" : {
+        "type" : "object",
+        "properties" : {
+          "rest_data" : {
+            "$ref" : "#/components/schemas/setBrokerProfileData_rest_data"
+          }
+        }
+      },
+      "inline_response_200_31" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "description" : "Indicates success status.",
+            "example" : true
+          }
+        }
+      },
+      "inline_response_404_16" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "description" : "Indicates if the profile update failed.",
+            "example" : false
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Profile update failed."
+          }
+        }
+      },
+      "inline_response_200_32" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "settings" : {
+            "type" : "object",
+            "properties" : {
+              "company_id" : {
+                "type" : "string",
+                "example" : "a1b2c3d4e5f6"
+              },
+              "smtp_server" : {
+                "type" : "string",
+                "example" : "smtp.example.com"
+              },
+              "smtp_user" : {
+                "type" : "string",
+                "example" : "user@example.com"
+              },
+              "smtp_password" : {
+                "type" : "string",
+                "example" : "password"
+              },
+              "smtp_port" : {
+                "type" : "integer",
+                "example" : 587
+              },
+              "smtp_encryption" : {
+                "type" : "string",
+                "example" : "TLS"
+              }
+            }
+          }
+        }
+      },
+      "inline_response_404_17" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "No settings found for the specified company ID."
+          }
+        }
+      },
+      "sendTestEmail_params_smtp_settings" : {
+        "type" : "object",
+        "properties" : {
+          "smtp_server" : {
+            "type" : "string",
+            "example" : "smtp.example.com"
+          },
+          "smtp_user" : {
+            "type" : "string",
+            "example" : "user@example.com"
+          },
+          "smtp_password" : {
+            "type" : "string",
+            "example" : "password"
+          },
+          "smtp_port" : {
+            "type" : "integer",
+            "example" : 587
+          },
+          "smtp_encryption" : {
+            "type" : "string",
+            "example" : "TLS"
+          }
+        }
+      },
+      "sendTestEmail_params" : {
+        "type" : "object",
+        "properties" : {
+          "email" : {
+            "type" : "string",
+            "example" : "test@example.com"
+          },
+          "smtp_settings" : {
+            "$ref" : "#/components/schemas/sendTestEmail_params_smtp_settings"
+          }
+        }
+      },
+      "sendTestEmail_body" : {
+        "type" : "object",
+        "properties" : {
+          "session" : {
+            "type" : "string",
+            "example" : "8lalb3srcmsbs1u1jgpkld80se"
+          },
+          "params" : {
+            "$ref" : "#/components/schemas/sendTestEmail_params"
+          }
+        }
+      },
+      "inline_response_200_33" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "An email was sent to the specified email address using the provided outgoing mail settings."
+          }
+        }
+      },
+      "inline_response_400_10" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Failed to send test email. Please check the SMTP settings and try again."
+          }
+        }
+      },
+      "sendBrokermails_params" : {
+        "type" : "object",
+        "properties" : {
+          "contact_id" : {
+            "type" : "string",
+            "example" : "12345678-abcd-90ef-ghij-klmnopqrstuv"
+          },
+          "company_id" : {
+            "type" : "string",
+            "example" : "5678abcd-90ef-ghij-klmn-1234opqrstuv"
+          }
+        }
+      },
+      "sendBrokermails_body" : {
+        "type" : "object",
+        "properties" : {
+          "session" : {
+            "type" : "string",
+            "example" : "8lalb3srcmsbs1u1jgpkld80se"
+          },
+          "params" : {
+            "$ref" : "#/components/schemas/sendBrokermails_params"
+          }
+        }
+      },
+      "inline_response_200_34" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Instruction Email Sent Successfully."
+          }
+        }
+      },
+      "inline_response_400_11" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Email field is missing. Please update Email."
+          }
+        }
+      },
+      "isDuplicateEmail_params" : {
+        "type" : "object",
+        "properties" : {
+          "email" : {
+            "type" : "string",
+            "example" : "test@example.com"
+          },
+          "module" : {
+            "type" : "string",
+            "example" : "Leads"
+          },
+          "field" : {
+            "type" : "string",
+            "example" : "email_c"
+          }
+        }
+      },
+      "isDuplicateEmail_body" : {
+        "type" : "object",
+        "properties" : {
+          "session" : {
+            "type" : "string",
+            "example" : "8lalb3srcmsbs1u1jgpkld80se"
+          },
+          "params" : {
+            "$ref" : "#/components/schemas/isDuplicateEmail_params"
+          }
+        }
+      },
+      "inline_response_200_35" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "message" : {
+            "type" : "string",
+            "example" : ""
+          }
+        }
+      },
+      "inline_response_400_12" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Email or module is missing."
+          }
+        }
+      },
+      "inline_response_200_36" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "string",
+            "example" : "true"
+          },
+          "document_name" : {
+            "type" : "string",
+            "example" : "Sample Document"
+          },
+          "document_revision_id" : {
+            "type" : "string",
+            "example" : "revision_id_12345"
+          },
+          "template_type" : {
+            "type" : "string",
+            "example" : "PDF"
+          },
+          "file_mime_type" : {
+            "type" : "string",
+            "example" : "application/pdf"
+          },
+          "file_ext" : {
+            "type" : "string",
+            "example" : "pdf"
+          },
+          "filename" : {
+            "type" : "string",
+            "example" : "sample_document.pdf"
+          },
+          "preview" : {
+            "type" : "string",
+            "example" : "yes"
+          },
+          "file_content" : {
+            "type" : "string",
+            "example" : "Base64_encoded_content"
+          }
+        }
+      },
+      "inline_response_404_18" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "string",
+            "example" : "false"
+          }
+        }
+      }
+    }
+  }
+}
